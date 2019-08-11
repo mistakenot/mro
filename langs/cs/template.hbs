@@ -1,0 +1,18 @@
+namespace {{ namespace }}
+{
+    // Install dapper using:
+    //  dotnet add package dapper
+    using Dapper;
+
+    // Class Definitions
+    {{#types}}
+    {{/types}}
+
+    public static class MroDbConnectionExtensions
+    {
+        {{#methods}}
+        public static async Task<{{ returns }}> {{ name }}(this IDbConnection db, {{csarglist args}})
+            => {{{dappercall this}}} {{schema.schema}}.{{schema.name}}({{arglist schema.args}})", new { {{csargnames args}} });
+        {{/methods}}
+    }
+}

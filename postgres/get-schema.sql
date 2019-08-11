@@ -2,6 +2,7 @@ select
     pn.nspname as schema,
     pp.proname as name,
     pp.prorettype as returnType,
+    pp.proallargtypes as allReturnTypes,
     pp.proretset as returnsSet,
     pp.pronargs as numberOfArgs,
     pp.proargtypes as argTypes,
