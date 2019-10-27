@@ -1,4 +1,4 @@
-var Type = require('../types/index').Type;
+var Type = require('../../types/index').Type;
 
 const PType = {
     16: Type.BOOL,
@@ -31,11 +31,12 @@ function getSchemaFromRow(row) {
 
 
     if (result.returns === "record") {
-        var recordTypes = [];
+        var recordTypes = {};
 
         for (var i = row.numberofargs; i < row.allreturntypes.length; i++) {
+            let name = row.argnames[i];
             let type = PType[row.allreturntypes[i]];
-            recordTypes.push(type)
+            recordTypes[name] = type;
         }
 
         result.returns = Type.ROW_OF(recordTypes);

@@ -1,5 +1,5 @@
 const getSchemaFromRow = require('./schema');
-const Type = require('../types').Type;
+const Type = require('../../types').Type;
 
 test('add_two_ints', () => {
     const row = {
@@ -159,7 +159,7 @@ test('create_and_return_employee', () => {
     const expected = {
         schema: 'public',
         name: 'create_and_return_employee',
-        returns: Type.ROW_OF([Type.INT, Type.STRING, Type.STRING, Type.STRING, Type.TIMESTAMP]),
+        returns: Type.ROW_OF({id: Type.INT, firstname: Type.STRING, secondname: Type.STRING, fullname: Type.STRING, dob: Type.TIMESTAMP}),
         args: {
             _id: Type.INT,
             _firstname: Type.STRING,

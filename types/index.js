@@ -6,11 +6,22 @@ const Type = {
     TIMESTAMP: 'timestamp',
     ARRAY_OF: (type) => `array[${type}]`,
     SET_OF: (type) => `set[${type}]`,
-    ROW_OF: (types) => `row[${types.join(',')}]`,
+    ROW_OF: (types) => `row[${JSON.stringify(types)}]`,
 
-    isArray: (type) => type.match(/^array\[(.*?)\]$/),
+    isArray: (type) => {
+        const match = type.match(/^array\[(.*?)\]$/)
+        return (match && match[1]);
+    },
     isSet: (type) => type.match(/^set\[(.*?)\]$/),
-    isRow: (type) => type.match(/^row\[(.*?)\]$/)
+    isRow: (type) => {
+        const innerTypeHash = type.match(/^row\[(.*?)\]$/)
+
+        if (!innerTypeHash) {
+            return null;
+        }
+
+        return JSON.parse(innerTypeHash[1]);
+    }
 }
 
 

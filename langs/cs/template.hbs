@@ -2,17 +2,26 @@ namespace {{ namespace }}
 {
     // Install dapper using:
     //  dotnet add package dapper
+    using System;
+    using System.Data;
+    using System.Threading.Tasks;
     using Dapper;
 
     // Class Definitions
     {{#types}}
-    {{/types}}
+    public class {{ name }} {
+        {{#properties}}
+        {{property this }}
+        {{/properties}}
+    }
 
+    {{/types}}
     public static class MroDbConnectionExtensions
     {
         {{#methods}}
-        public static async Task<{{ returns }}> {{ name }}(this IDbConnection db, {{csarglist args}})
+        public static Task<{{ returns }}> {{ name }}(this IDbConnection db, {{csarglist args}})
             => {{{dappercall this}}} {{schema.schema}}.{{schema.name}}({{arglist schema.args}})", new { {{csargnames args}} });
+
         {{/methods}}
     }
 }

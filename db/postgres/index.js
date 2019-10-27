@@ -1,5 +1,6 @@
 const { Pool } = require('pg')
 const fs = require('fs')
+const schemaReader = require('./schema');
 
 const schemaQuery = fs.readFileSync(__dirname + '/get-schema.sql').toString("utf8");
 
@@ -10,10 +11,7 @@ async function readSchemaRowsFromDatabase() {
     return res.rows;
 }
 
-function generateSchemaFromRows(rows) {
-
-}
-
 module.exports = async function() {
-    const schema = await readSchemaRowsFromDatabase()
+    const dbSchema = await readSchemaRowsFromDatabase();
+    return dbSchema.map(schemaReader);
 }
